@@ -1,5 +1,7 @@
 package se.verran.springdatajpaproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,8 +12,8 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "id")
+    @JsonIgnoreProperties("owner")
+    @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Car> cars;
 
     public Owner() {
